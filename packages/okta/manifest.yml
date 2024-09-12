@@ -24,7 +24,7 @@ policy_templates:
     description: Collect logs from Okta
     deployment_modes:
       default:
-        enabled: false
+        enabled: true
       agentless:
         enabled: true
     inputs:
