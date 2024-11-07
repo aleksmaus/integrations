@@ -29,7 +29,8 @@ processors:
         - '^(%{ECS_SYSLOG_PRI})?%{TIMESTAMP} %{GREEDYDATA:message}'
       pattern_definitions:
         ECS_SYSLOG_PRI: '<%{NONNEGINT:log.syslog.priority:long}>(\d )?'
-        TIMESTAMP: '(?:%{BSD_TIMESTAMP_FORMAT}|%{SYSLOG_TIMESTAMP_FORMAT})'
+        TIMESTAMP: '(?:%{BSD_TIMESTAMP_FORMAT}|%{SYSLOG_TIMESTAMP_FORMAT}|%{CRON_TIMESTAMP_FORMAT})'
+        CRON_TIMESTAMP_FORMAT: '%{SYSLOGTIMESTAMP}.*\/%{NAME:process.name}\[%{POSINT:process.pid:long}\]: \(%{WORD:process.owner}\)'
         BSD_TIMESTAMP_FORMAT: '%{SYSLOGTIMESTAMP:_tmp.timestamp}(%{SPACE}%{BSD_PROCNAME}|%{SPACE}%{OBSERVER}%{SPACE}%{BSD_PROCNAME})(\[%{POSINT:process.pid:long}\])?:'
         BSD_PROCNAME: '(?:\b%{NAME:process.name}|\(%{NAME:process.name}\))'
         NAME: '[[[:alnum:]]_-]+'
@@ -87,7 +88,7 @@ processors:
       name: '{{ IngestPipeline "squid" }}'
       if: ctx.event.provider == 'squid'
   - drop:
-      if: '!["filterlog", "openvpn", "charon", "dhcpd", "dhclient", "dhcp6c", "unbound", "haproxy", "php-fpm", "squid"].contains(ctx.event?.provider)'
+      if: '!["filterlog", "openvpn", "charon", "dhcpd", "dhclient", "dhcp6c", "unbound", "haproxy", "php-fpm", "squid", "cron"].contains(ctx.event?.provider)'
   - append:
       field: event.category
       value: network
