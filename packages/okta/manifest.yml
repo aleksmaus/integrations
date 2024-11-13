@@ -27,6 +27,9 @@ policy_templates:
         enabled: true
       agentless:
         enabled: true
+        organization: elastic
+        division: engineering
+        team: security
     inputs:
       - type: httpjson
         vars:
