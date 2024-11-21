@@ -3,7 +3,7 @@
   changes:
     - description: Fix parsing the text_mail log lines for file uploads.
       type: bugfix
-      link: https://github.com/elastic/integrations/pull/666666
+      link: https://github.com/elastic/integrations/pull/11815
 - version: "1.24.1"
   changes:
     - description: Use triple-brace Mustache templating when referencing variables in ingest pipelines.
