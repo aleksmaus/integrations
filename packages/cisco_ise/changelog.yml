@@ -3,7 +3,7 @@
   changes:
     - description: Revert mapping change for cisco_av_pair that was introduced with 1.24.1.
       type: bugfix
-      link: https://github.com/elastic/integrations/pull/666666
+      link: https://github.com/elastic/integrations/pull/11800
 - version: "1.24.1"
   changes:
     - description: Fix multiple pipeline processing issues.
